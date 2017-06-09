@@ -2,11 +2,13 @@ class Post < ApplicationRecord
   include MultipleMan::Publisher
   publish fields: [:token]
 
-  def self.make(total)
-    total.times { |i| Post.create(token: i) }
+  def self.rain(total)
+    make(total)
+
+    { total_created: Post.count }
   end
 
-  def self.clean
-    delete_all
+  def self.make(total)
+    total.times { |i| Post.create(token: i) }
   end
 end
