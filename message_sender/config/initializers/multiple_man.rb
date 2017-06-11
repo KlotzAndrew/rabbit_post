@@ -1,9 +1,15 @@
+class MmErrorLogger
+  def log(msg)
+    @logger ||= Logger.new("#{Rails.root}/log/mm_error.log")
+    @logger.error(msg)
+  end
+end
+
 MultipleMan.configure do |config|
   # A connection string to your local server. Defaults to localhost.
   config.connection = {
     addresses: ['192.168.99.102:5673', '192.168.99.102:5674', '192.168.99.102:5675']
   }
-
   # The topic name to push to. If you have multiple
   # multiple man apps, this should be unique per application. Publishers
   # and subscribers should always use the same topic.
@@ -15,8 +21,9 @@ MultipleMan.configure do |config|
 
   # Specify what should happen when MultipleMan
   # encounters an exception.
+
   config.on_error do |exception|
-    ErrorLogger.log(exception)
+    MmErrorLogger.log(exception)
   end
 
   # Add opts that go directly to the bunny constructor (Advanced)
@@ -31,5 +38,5 @@ MultipleMan.configure do |config|
 
   # Where you want to log errors to. Should be an instance of Logger
   # Defaults to the Rails logger (for Rails) or STDOUT otherwise.
-  config.logger = Logger.new(STDOUT)
+  config.logger = Logger.new("#{Rails.root}/log/mm.log")
 end
