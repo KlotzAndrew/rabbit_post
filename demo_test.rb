@@ -29,7 +29,6 @@ Dir.chdir('message_consumer') do
   sleep 5 # process all messages
   worker.kill
   received = `rails runner 'puts Post.total'`
-  puts `rails runner 'puts Post.delete_all'`
 end
 
 restarter.join
