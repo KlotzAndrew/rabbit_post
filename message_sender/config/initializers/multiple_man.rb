@@ -1,5 +1,5 @@
 class MmErrorLogger
-  def log(msg)
+  def self.log(msg)
     @logger ||= Logger.new("#{Rails.root}/log/mm_error.log")
     @logger.error(msg)
   end
@@ -8,7 +8,8 @@ end
 MultipleMan.configure do |config|
   # A connection string to your local server. Defaults to localhost.
   config.connection = {
-    addresses: ['192.168.99.102:5673', '192.168.99.102:5674', '192.168.99.102:5675']
+    addresses: ['192.168.99.100:5673', '192.168.99.100:5674', '192.168.99.100:5675'],
+    continuation_timeout: 1000
   }
   # The topic name to push to. If you have multiple
   # multiple man apps, this should be unique per application. Publishers
@@ -35,6 +36,8 @@ MultipleMan.configure do |config|
   config.exchange_opts = {
     durable: true
   }
+
+  config.publisher_confirms = true
 
   # Where you want to log errors to. Should be an instance of Logger
   # Defaults to the Rails logger (for Rails) or STDOUT otherwise.

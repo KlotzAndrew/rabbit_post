@@ -1,7 +1,7 @@
 MultipleMan.configure do |config|
   # A connection string to your local server. Defaults to localhost.
   config.connection = {
-    addresses: ['192.168.99.102:5673', '192.168.99.102:5674', '192.168.99.102:5675']
+    addresses: ['192.168.99.100:5673', '192.168.99.100:5674', '192.168.99.100:5675']
   }
 
   # The topic name to push to. If you have multiple
